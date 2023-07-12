@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_box_demo/video_box_demo/right_part.dart';
 import '../api/api_manager.dart';
-import '../api/message_model.dart';
+import '../models/message_model.dart';
 import 'left_part.dart';
 
 class MainPart extends StatefulWidget {

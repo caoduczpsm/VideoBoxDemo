@@ -5,7 +5,8 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:video_box_demo/mqtt/state/mqtt_app_state.dart';
 
 import '../api/api_manager.dart';
-import '../api/message_model.dart';
+import '../models/message_model.dart';
+import '../ults/constants.dart';
 
 class MQTTManager {
   // Private instance of client
@@ -14,11 +15,6 @@ class MQTTManager {
   final String _identifier;
   final String _host;
   final APIManager _apiManager;
-
-  static const String listenTopic = "pub/dt/#";
-  static const String publishToOldDevice = "api/mqtt/test";
-  static const String publishToNewDevice = "api/mqtt/newDevice/";
-  static const String newDevice = "#newDevice#";
 
   // Constructor
   // ignore: sort_constructors_first
@@ -70,10 +66,10 @@ class MQTTManager {
     if (!isNew) {
       // Use QoS 0 for publishing
       _client!.publishMessage(
-          publishToOldDevice, MqttQos.atMostOnce, builder.payload!,
+          Constants.publishToOldDevice, MqttQos.atMostOnce, builder.payload!,
           retain: false);
     } else {
-      String newConnection = publishToNewDevice + deviceId;
+      String newConnection = Constants.publishToNewDevice + deviceId;
       _client!.publishMessage(
           newConnection, MqttQos.atMostOnce, builder.payload!,
           retain: false);
@@ -95,7 +91,7 @@ class MQTTManager {
   void onConnected() {
     _currentState.setAppConnectionState(MQTTAppConnectionState.connected);
     // Use QoS 0 for subscribing
-    _client!.subscribe(listenTopic, MqttQos.atMostOnce);
+    _client!.subscribe(Constants.listenTopic, MqttQos.atMostOnce);
     //_client!.subscribe('api/mqtt/newDevice/#', MqttQos.atLeastOnce);
 
     _client!.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
@@ -105,7 +101,7 @@ class MQTTManager {
           MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
       _currentState.setReceivedText(pt);
 
-      if (pt.contains(newDevice)) {
+      if (pt.contains(Constants.newDevice)) {
         List<String> parts = pt.split(",");
         String deviceId = parts[0];
         _apiManager.getMessages().then((List<Message> messages) {
@@ -116,7 +112,7 @@ class MQTTManager {
       } else if (pt == "#playVideo#") {
         getMessageMQTT(Message(message: pt));
       } else {
-        _apiManager.submit(pt);
+        _apiManager.submitMessage(pt);
         publish(Message(message: pt), "", false);
       }
     });

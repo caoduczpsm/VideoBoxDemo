@@ -1,16 +1,16 @@
 
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:video_box_demo/models/video_model.dart';
+import 'package:video_box_demo/ults/constants.dart';
 import 'dart:convert';
 
-import 'message_model.dart';
+import '../models/message_model.dart';
 
 class APIManager {
-  static const url =
-      "https://648a17fb5fa58521cab0cbe6.mockapi.io/api/v1/demo_mqtt";
 
   Future<List<Message>> getMessages() async {
-    final uri = Uri.parse(url);
+    final uri = Uri.parse(Constants.messageUrl);
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
@@ -20,9 +20,20 @@ class APIManager {
     }
   }
 
-  Future<void> submit(String message) async {
+  Future<List<Video>> getVideos() async {
+    final uri = Uri.parse(Constants.videoUrl);
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      return parseVideos(response.body);
+    } else {
+      throw Exception("Failed to load Message");
+    }
+  }
+
+  Future<void> submitMessage(String message) async {
     final body = {"message": message};
-    final uri = Uri.parse(url);
+    final uri = Uri.parse(Constants.messageUrl);
     final response = await http.post(uri, body: body);
 
     if (response.statusCode != 201) {
@@ -33,5 +44,10 @@ class APIManager {
   List<Message> parseMessages(String response) {
     final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
     return parsed.map<Message>((json) => Message.fromJson(json)).toList();
+  }
+
+  List<Video> parseVideos(String response) {
+    final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
+    return parsed.map<Video>((json) => Video.fromJson(json)).toList();
   }
 }

@@ -3,7 +3,8 @@ import 'dart:async';
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../api/message_model.dart';
+import 'package:video_box_demo/ults/constants.dart';
+import '../models/message_model.dart';
 
 class LeftPart extends StatefulWidget {
   const LeftPart({Key? key, required this.messages})
@@ -48,16 +49,16 @@ class _LeftPartState extends State<LeftPart> {
   }
 
   final textTitleStyle = const TextStyle(
-      fontSize: 24,
+      fontSize: Constants.textTitleSize,
       fontWeight: FontWeight.bold,
-      fontFamily: 'times-new-roman-14');
+      fontFamily: Constants.fontName);
   final textDescriptionStyle =
-      const TextStyle(fontSize: 18, fontFamily: 'times-new-roman-14');
+      const TextStyle(fontSize: Constants.textBodySize, fontFamily: Constants.fontName);
   final currentPageTextStyle = const TextStyle(
-      fontSize: 18,
+      fontSize: Constants.textBodySize,
       color: Colors.blueAccent,
       fontWeight: FontWeight.bold,
-      fontFamily: 'times-new-roman-14');
+      fontFamily: Constants.fontName);
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 // ignore: depend_on_referenced_packages
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../api/message_model.dart';
+import '../models/message_model.dart';
 
 class RightPart extends StatefulWidget {
   final Message? selectedMessage;
