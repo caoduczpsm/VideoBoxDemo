@@ -43,11 +43,12 @@ dev_dependencies:
 
   web_socket_channel: 2.4.0
   mqtt_client: ^10.0.0
-  provider: ^5.0.0
+  provider: ^6.0.5
   http: ^0.13.5
   video_player: ^2.7.0
-  visibility_detector: ^0.4.0+2
   cached_network_image: ^3.2.3
+  chewie: ^1.7.0
+  get: ^4.6.5
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

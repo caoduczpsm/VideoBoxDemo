@@ -16,7 +16,7 @@ class APIManager {
     if (response.statusCode == 200) {
       return parseMessages(response.body);
     } else {
-      throw Exception("Failed to load Message");
+      throw Exception(response.body);
     }
   }
 
@@ -27,7 +27,7 @@ class APIManager {
     if (response.statusCode == 200) {
       return parseVideos(response.body);
     } else {
-      throw Exception("Failed to load Message");
+      throw Exception(response.body);
     }
   }
 

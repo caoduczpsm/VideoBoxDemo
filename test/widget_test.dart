@@ -8,13 +8,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:video_box_demo/main.dart';
-import 'package:video_box_demo/video_box_demo/pagination_demo.dart';
+import 'package:video_box_demo/video_box_demo/main/video_box.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MainPart());
+    await tester.pumpWidget(const VideoBox());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

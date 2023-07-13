@@ -4,20 +4,19 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:video_box_demo/ults/constants.dart';
-import '../models/message_model.dart';
+import '../../models/message_model.dart';
 
-class LeftPart extends StatefulWidget {
-  const LeftPart({Key? key, required this.messages})
-      : super(key: key);
+class NewsFeedPart extends StatefulWidget {
+  const NewsFeedPart({Key? key, required this.messages}) : super(key: key);
 
   final List<Message> messages;
 
   @override
   // ignore: library_private_types_in_public_api
-  _LeftPartState createState() => _LeftPartState();
+  State<NewsFeedPart> createState() => _NewsFeedPartState();
 }
 
-class _LeftPartState extends State<LeftPart> {
+class _NewsFeedPartState extends State<NewsFeedPart> {
   int currentIndex = -1;
 
   void updateIndex() {
@@ -52,8 +51,8 @@ class _LeftPartState extends State<LeftPart> {
       fontSize: Constants.textTitleSize,
       fontWeight: FontWeight.bold,
       fontFamily: Constants.fontName);
-  final textDescriptionStyle =
-      const TextStyle(fontSize: Constants.textBodySize, fontFamily: Constants.fontName);
+  final textDescriptionStyle = const TextStyle(
+      fontSize: Constants.textBodySize, fontFamily: Constants.fontName);
   final currentPageTextStyle = const TextStyle(
       fontSize: Constants.textBodySize,
       color: Colors.blueAccent,
@@ -105,26 +104,26 @@ class _LeftPartState extends State<LeftPart> {
                             margin: const EdgeInsets.all(10.0),
                             child: Center(
                               child: FittedBox(
-                                fit: BoxFit.fill,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                    widget.messages[currentIndex].imageUrl!,
-                                    placeholder: (context, url) =>
-                                    const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                                  ),
-                                )
-                              ),
+                                  fit: BoxFit.fill,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: CachedNetworkImage(
+                                      imageUrl: widget
+                                          .messages[currentIndex].imageUrl!,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  )),
                             ),
                           ),
                         ),
                         Expanded(
                           flex: 1,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 20.0),
                             child: Column(
                               children: [
                                 Text(
@@ -172,6 +171,9 @@ class _LeftPartState extends State<LeftPart> {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 10,
             )
           ],
         ),
