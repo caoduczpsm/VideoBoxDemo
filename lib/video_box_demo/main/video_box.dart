@@ -1,7 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:video_box_demo/video_box_demo/main/video_box_controller.dart';
-import 'package:video_box_demo/video_box_demo/video_part.dart';
+import 'package:video_box_demo/video_box_demo/video_part/video_part.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 import '../news_feed/news_feed_part.dart';
