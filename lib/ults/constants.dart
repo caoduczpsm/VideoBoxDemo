@@ -13,4 +13,7 @@
   static const String publishToOldDevice = "api/mqtt/test";
   static const String publishToNewDevice = "api/mqtt/newDevice/";
   static const String newDevice = "#newDevice#";
+
+  static const String host = "test.mosquitto.org";
+  static const String deviceId = "video_box";
  }

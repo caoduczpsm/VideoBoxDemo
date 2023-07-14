@@ -5,11 +5,11 @@ import 'package:video_box_demo/models/video_model.dart';
 import 'package:video_box_demo/ults/constants.dart';
 import 'dart:convert';
 
-import '../models/message_model.dart';
+import '../models/news_model.dart';
 
 class APIManager {
 
-  Future<List<Message>> getMessages() async {
+  Future<List<News>> getMessages() async {
     final uri = Uri.parse(Constants.messageUrl);
     final response = await http.get(uri);
 
@@ -41,9 +41,9 @@ class APIManager {
     }
   }
 
-  List<Message> parseMessages(String response) {
+  List<News> parseMessages(String response) {
     final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
-    return parsed.map<Message>((json) => Message.fromJson(json)).toList();
+    return parsed.map<News>((json) => News.fromJson(json)).toList();
   }
 
   List<Video> parseVideos(String response) {

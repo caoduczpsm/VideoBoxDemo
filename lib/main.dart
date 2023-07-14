@@ -7,14 +7,18 @@ import 'mqtt/state/mqtt_app_state.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  Get.put(MQTTAppState());
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp (
+
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -34,10 +38,6 @@ class MyApp extends StatelessWidget {
         return null;
       },
       debugShowCheckedModeBanner: false,
-      // home: ChangeNotifierProvider<MQTTAppState>(
-      //   create: (_) => MQTTAppState(),
-      //   child: const MainPart(),
-      // )
     );
   }
 }

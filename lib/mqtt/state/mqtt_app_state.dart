@@ -4,10 +4,10 @@ enum MQTTAppConnectionState { connected, disconnected, connecting }
 
 class MQTTAppState with ChangeNotifier {
   MQTTAppConnectionState _appConnectionState = MQTTAppConnectionState.disconnected;
-  final List<String> _historyText = [];
+  final List<String> historyText = [];
 
   void setReceivedText(String text) {
-    _historyText.add(text);
+    historyText.add(text);
     notifyListeners();
   }
 
@@ -17,11 +17,11 @@ class MQTTAppState with ChangeNotifier {
   }
 
   void clearListMessage() {
-    _historyText.clear();
+    historyText.clear();
     notifyListeners();
   }
 
-  List<String> get getHistoryText => _historyText.toList();
+  List<String> get getHistoryText => historyText.toList();
 
   MQTTAppConnectionState get getAppConnectionState => _appConnectionState;
 }

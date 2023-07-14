@@ -1,65 +1,46 @@
 
-// ignore: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages
+
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-// ignore: depend_on_referenced_packages
 import 'package:video_player/video_player.dart';
-// ignore: depend_on_referenced_packages
 import 'package:chewie/chewie.dart';
 import '../../models/video_model.dart';
 
 class VideoPartController extends GetxController {
 
   var index = 0.obs;
-  var isLastVideo = false.obs;
-  late VideoPlayerController _controller;
-  late ChewieController chewieController;
+  late PageController pageController;
+  late List<VideoPlayerController> _controllers;
+  late List<ChewieController> chewieControllers;
 
   void initState(List<Video> videos) {
-    _controller =
-        VideoPlayerController.networkUrl(Uri.parse(videos[index.value].url!));
-
-    chewieController = ChewieController(
-      videoPlayerController: _controller,
+    _controllers = videos.map((video) => VideoPlayerController.networkUrl(Uri.parse(video.url!))).toList();
+    chewieControllers = _controllers.map((controller) => ChewieController(
+      videoPlayerController: controller,
       autoPlay: true,
-      looping: isLastVideo.value,
+      looping: false,
       aspectRatio: 16 / 9,
       allowFullScreen: true,
       allowPlaybackSpeedChanging: true,
       autoInitialize: true,
-    );
+    )).toList();
 
-    _controller.addListener(() {
-      if (_controller.value.position == _controller.value.duration) {
-        index.value++;
-        if (index.value == videos.length) {
-          index.value = 0;
-          isLastVideo.value = true;
-        } else {
-          isLastVideo.value = false;
-        }
-
-        _controller.dispose();
-        chewieController.dispose();
-        _controller = VideoPlayerController.networkUrl(
-            Uri.parse(videos[index.value].url!));
-        chewieController = ChewieController(
-          videoPlayerController: _controller,
-          autoPlay: true,
-          looping: isLastVideo.value,
-          aspectRatio: 16 / 9,
-          allowFullScreen: true,
-          allowPlaybackSpeedChanging: true,
-          autoInitialize: true,
-        );
-        update();
-      }
+    pageController = PageController();
+    pageController.addListener(() {
+      index.value = pageController.page!.round();
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
-    chewieController.dispose();
+    pageController.dispose();
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    for (var controller in chewieControllers) {
+      controller.dispose();
+    }
   }
 }

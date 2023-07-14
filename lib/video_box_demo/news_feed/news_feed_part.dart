@@ -1,17 +1,16 @@
-
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:video_box_demo/ults/constants.dart';
 import 'package:video_box_demo/video_box_demo/news_feed/news_feed_controller.dart';
-import '../../models/message_model.dart';
+import '../../models/news_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 
 class NewsFeedPart extends StatelessWidget {
-  NewsFeedPart({Key? key, required this.messages}) : super(key: key);
+  NewsFeedPart({Key? key, required this.news}) : super(key: key);
 
-  final List<Message> messages;
+  final List<News> news;
 
   final textTitleStyle = const TextStyle(
       fontSize: Constants.textTitleSize,
@@ -29,6 +28,7 @@ class NewsFeedPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder(
         init: newsFeedController,
         builder: (controller) {
@@ -77,12 +77,16 @@ class NewsFeedPart extends StatelessWidget {
                                     child: FittedBox(
                                         fit: BoxFit.fill,
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                          BorderRadius.circular(10.0),
                                           child: CachedNetworkImage(
-                                            imageUrl: messages[controller.currentIndex.value].imageUrl!,
+                                            imageUrl: news[controller
+                                                .currentIndex.value]
+                                                .imageUrl!,
                                             placeholder: (context, url) =>
                                             const CircularProgressIndicator(),
-                                            errorWidget: (context, url, error) =>
+                                            errorWidget:
+                                                (context, url, error) =>
                                             const Icon(Icons.error),
                                           ),
                                         )),
@@ -92,22 +96,24 @@ class NewsFeedPart extends StatelessWidget {
                               Expanded(
                                 flex: 1,
                                 child: Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 20.0, right: 20.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, right: 20.0),
                                   child: Column(
                                     children: [
                                       Text(
-                                        messages[controller.currentIndex.value].message!,
+                                        news[controller.currentIndex.value]
+                                            .message!,
                                         style: textTitleStyle,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         textAlign: TextAlign.justify,
                                       ),
                                       Text(
-                                        messages[controller.currentIndex.value].description!,
+                                        news[controller.currentIndex.value]
+                                            .description!,
                                         style: textDescriptionStyle,
                                         overflow: TextOverflow.ellipsis,
-                                        maxLines: 10,
+                                        maxLines: 5,
                                         textAlign: TextAlign.justify,
                                       ),
                                     ],
@@ -125,7 +131,7 @@ class NewsFeedPart extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            controller.previousPage(messages);
+                            controller.previousPage();
                           },
                           icon: const Icon(Icons.arrow_back),
                         ),
@@ -134,12 +140,12 @@ class NewsFeedPart extends StatelessWidget {
                           style: currentPageTextStyle,
                         ),
                         Text(
-                          ' / ${messages.length}',
+                          ' / ${news.length}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         IconButton(
                           onPressed: () {
-                            controller.nextPage(messages);
+                            controller.nextPage();
                           },
                           icon: const Icon(Icons.arrow_forward),
                         ),
@@ -153,9 +159,6 @@ class NewsFeedPart extends StatelessWidget {
               ),
             ),
           );
-        }
-    );
+        });
   }
-
-
 }

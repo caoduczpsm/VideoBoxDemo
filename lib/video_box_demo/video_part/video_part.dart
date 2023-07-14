@@ -21,18 +21,19 @@ class VideoPart extends StatelessWidget {
       init: videoController,
       builder: (controller) {
         return Center(
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            transitionBuilder: (child, animation) => ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: AspectRatio(
-              key: ValueKey<int>(controller.index.value),
               aspectRatio: 16 / 9,
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                child: Chewie(controller: controller.chewieController),
+                child: PageView.builder(
+                  controller: controller.pageController,
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) {
+                    return Chewie(controller: controller.chewieControllers[index]);
+                  },
+                ),
               ),
             ),
           ),

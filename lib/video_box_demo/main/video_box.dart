@@ -1,7 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:video_box_demo/video_box_demo/main/video_box_controller.dart';
-import 'package:video_box_demo/video_box_demo/video_part/video_part.dart';
+import 'package:video_box_demo/video_box_demo/sos_news/sos_news.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 import '../news_feed/news_feed_part.dart';
@@ -11,7 +11,6 @@ class VideoBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.put(VideoController());
 
     return Scaffold(
@@ -19,9 +18,9 @@ class VideoBox extends StatelessWidget {
         title: const Text('Demo Video Box'),
       ),
       body: GetBuilder<VideoController>(
+        init: controller,
         builder: (_) {
-          if (controller.messages.isEmpty || controller.videos.isEmpty) {
-
+          if (controller.news.isEmpty || controller.videos.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -33,9 +32,14 @@ class VideoBox extends StatelessWidget {
                 child: Column(
                   children: [
                     Expanded(
-                      child: NewsFeedPart(
-                        messages: controller.messages,
-                      ),
+                      flex: 2,
+                      child: Obx(() {
+                        if (controller.isShowingNewsFeed.value) {
+                          return NewsFeedPart(news: controller.news);
+                        } else {
+                          return SosNews(message: controller.message!);
+                        }
+                      }),
                     ),
                   ],
                 ),
@@ -52,10 +56,11 @@ class VideoBox extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                      color: Colors.lightBlue[100],
-                      borderRadius:
-                      const BorderRadius.all(Radius.circular(10.0))),
-                  child: VideoPart(videos: controller.videos,),
+                    color: Colors.lightBlue[100],
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  //child: VideoPart(videos: controller.videos,),
+                  child: Container(),
                 ),
               ),
             ],
