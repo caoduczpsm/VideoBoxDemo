@@ -9,7 +9,6 @@ import '../../mqtt/mqtt_manager.dart';
 import '../../mqtt/state/mqtt_app_state.dart';
 import '../../ults/constants.dart';
 
-
 class VideoController extends GetxController {
   RxList<News> news = <News>[].obs;
   RxList<Video> videos = <Video>[].obs;
@@ -52,10 +51,10 @@ class VideoController extends GetxController {
 
   void resetMessage() {
     Future.delayed(Duration(seconds: int.parse(message!.payload!.ThoiLuong!)),
-            () {
-          isShowingNewsFeed.value = true;
-          update();
-        });
+        () {
+      isShowingNewsFeed.value = true;
+      update();
+    });
   }
 
   @override

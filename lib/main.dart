@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -31,9 +30,9 @@ class MyApp extends StatelessWidget {
           case '/mainPart':
             return MaterialPageRoute(
                 builder: (_) => ChangeNotifierProvider<MQTTAppState>(
-                  create: (_) => MQTTAppState(),
-                  child: const VideoBox(),
-                ));
+                      create: (_) => MQTTAppState(),
+                      child: const VideoBox(),
+                    ));
         }
         return null;
       },

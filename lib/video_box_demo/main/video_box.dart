@@ -36,13 +36,13 @@ class VideoBox extends StatelessWidget {
             Widget leftPart, rightPart, notifyPart, fullScreen;
 
             if (!controller.isShowingNewsFeed.value) {
-              int vungPhat = int.parse(controller.message!.payload!.VungPhat!);
+              int displayArea = int.parse(controller.message!.payload!.VungPhat!);
 
-              if (vungPhat == fullScreenMode) {
+              if (displayArea == fullScreenMode) {
                 fullScreen = SosNews(message: controller.message!);
                 leftPart = Container();
                 rightPart = Container();
-              } else if (vungPhat == leftMode) {
+              } else if (displayArea == leftMode) {
                 leftPart =  SosNews(message: controller.message!);
                 rightPart = VideoPart(videos: controller.videos);
                 //Tạm
